@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--/jquerystudy/src/main/webapp/20230426/ajax3.html  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>json 읽기</title>
+<script type="text/javascript">
+	function load(url){
+		const xhttp = new XMLHttpRequest()
+		xhttp.open("GET",url)
+		xhttp.send()
+		xhttp.onreadystatechange=callBack
+	}
+	function callBack() {
+		if(this.readyState == 4 && this.status == 200) {
+			let area = document.querySelector("#area")
+			//id 속성이area 인걸 area 변수에 넣는다 div태그?
+			/*
+			 responseText :
+			[] 배열	 
+				 
+			[{"author":{"book":"ajax","pubDate":"2023-04-26"}},
+			 {"author":{"book":"자바","pubDate":"2023-02-01"}},
+ 		     {"author":{"book":"웹","pubDate":"2023-03-20"}}]
+
+			 json객체 <= JSON.parse(문자열)
+			 data : json 객체. 배열
+			 */
+			
+			let data = JSON.parse(this.responseText)
+			//s : {"author":{"book":"ajax","pubDate":"2023-04-26"}}
+			//s.author : {"book":"ajax","pubDate":"2023-04-26"}
+			//s.author.book : ajax
+			//s.author.pubDate : 2023-04-26
+			
+			for(s of data){
+				area.innerHTML += '<p>'+s.author.book+":"+s.author.pubDate+'</p>'
+				//area.innerHTML += 이기 때문에 버튼 누르면 계속 추가됨
+			}
+		}
+	}
+</script>
+</head>
+<body>
+<input type="button" value="json읽기" onclick="load('test.json')">
+<div id="area"></div>
+</body>
+</html>
