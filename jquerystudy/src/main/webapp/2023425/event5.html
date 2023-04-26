@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/2023425/event5.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기본 이벤트 무시하기</title>
+<style type="text/css">
+	* {margin:5px; padding:5px; border:3px solid black;}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("h1").click(function(){
+			$(this).css("background-color","red")
+		})
+		$("a").click(function(event){
+			$(this).css("background-color","blue")
+		//	event.stopPropagation(); //이벤트 전파 방지
+		//	event.preventDefault();	//태그에 설정된 기본 이벤트 취소
+			return false; //위에 두가지 기능 다 실행해줌
+		})
+		//a태그가 h1태그 안에 있기 때문에 a 클릭하면 h1까지 같이 클릭된것으로 이벤트 일어남
+		//그래서 a에만 이벤트 주고싶으면 function(event) 와 event.stopPropagation(); 써줘야함
+		//event.preventDefault(); : 원래 a태그의 기능인 링크이동 막아줌
+	})
+</script>
+</head>
+<body>
+<h1>
+	<a href="http://www.gdu.co.kr">구디 아카데미</a>
+</h1>
+<h1>Header 1</h1>
+</body>
+</html>

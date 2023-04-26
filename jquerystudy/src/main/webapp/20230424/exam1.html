@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/20230424/exam1.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		let colors =["red","yellow","purple"]
+/*		
+		$.each(colors,function(i,c){
+			$("h1:eq("+i+")").css("color",c)
+		})
+//		$("h1").each(function(i,h1){
+//			$(this).css("color,colors[i]")
+//		})
+*/
+		//css를 이용하여 처리하기
+/*		
+		$("h1").css("color",function(i){ //i:h1태그의 인덱스
+			return colors[i]
+		}).css("background","black")
+*/
+/*
+		$("h1").css({"color":function(i){ //i:h1태그의 인덱스
+			return colors[i] },
+			"background":"blue"})
+		$.each(colors,function(i,c){
+			$("h1:eq("+i+")").css("color",c)
+		})
+*/		
+	//1번 방법에 배경색 파란색으로 추가하기
+/*
+		$("h1").each(function(i,h1){
+			$(this).css("color",colors[i]).css("background","blue")
+		})
+*/
+
+		$.each(colors,function(i,c){
+			$("h1:eq("+i+")").css({"color":c,"background":"blue"})
+		})
+
+		$("h1").each(function(i,h1){
+		//	alert($(this).css("color"))	
+			alert($(this).css("background-color"))
+		})
+	})
+	
+</script>
+</head>
+<body>
+h1 태그의 글자색을 red,yellow,purple 로 설정하기 : each 함수 사용
+배경색을 검정색으로 설정하기
+배경색 파란색으로 바꾸기
+<h1>Header_0:red</h1>
+<h1>Header_1:yellow</h1>
+<h1>Header_2:purple</h1>
+</body>
+</html>

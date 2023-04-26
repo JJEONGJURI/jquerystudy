@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/20230424/jquery1.html 
+	1.jquerystudy Dynamic web project로 생성
+	2. webapp 에 오늘날짜로 폴더 생성
+	3. jquery1.html html 파일 생성
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 밑에거 안적으면 색깔 안먹히고 까만색 나옴 그리고 f12 누르면 오류뜸 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+//(document).ready : sindow.inload=function() ...
+//$(document).ready(function(){
+	$(function(){ //(document).ready 생략
+	 //$("선택자") : * : 모든 태그	document.querySelecter("선택자")\
+	 //			태그이름 : 태그이름의 태그 선택
+	 //				.class속성값 : class="속성값" 태그 선택
+	 //				#id속성값	   : id="속성값" 태그 선택
+	 
+	 // css : style 설정
+		$("*").css("color","pink")
+	//p 태그의 글자색 파란색으로 설정
+		$("p").css("color","blue")
+	//h1 태그의 글자색 빨간색으로 설정
+	$("h1").css("color","red")
+	//class속성의 값이 item 태그의 글자색 초록색으로 설정
+	$(".item").css("color","green")
+	//id속성의 값이 selected 태그의 글자색 오렌지색으로 설정
+	$("#selected").css("color","orange")
+	})
+</script>
+</head>
+<body>
+<h1>Jquery1<p>Jquery1</p></h1>
+<h1>Jquery1</h1><p>Jquery1</p>
+<h1 class="item">Jquery1 class="item"</h1>
+<h1 id="selected">Jquery1 id="selected"</h1>
+<h2>Jqeury2</h2><h3>Jquery3</h3>
+<!--jquery를 CDN 방식으로 설정하기 -->
+<!--
+<script
+  src="https://code.jquery.com/jquery-3.6.4.min.js">
+</script>
+  -->
+</body>
+</html>

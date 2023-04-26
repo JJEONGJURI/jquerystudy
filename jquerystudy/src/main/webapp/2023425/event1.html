@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/2023425/event1.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 예제 1</title>
+<style type="text/css">
+	.reverse {
+	background: black;
+	color: white;
+	}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("h1").on("click",function(){ //$h1 : h1태그들(이벤트소스) 
+			//on(이벤트종류,함수(핸들러)) : 이벤트 등록 
+			//핸들러: 이벤트가 발생하면 이것을 해줘~(h1이 클릭되면 밑에꺼를 실행해줘)
+			$(this).html(function(i,item){
+			//$(this) : 이벤트가 발생한 h1 태그. 진짜 이벤트소스(h1이 세가지가 있는데 그중 실행되는 태그는 지금은 한개)//클릭된 h1태그한개	
+			//(function(i,item) : this의 html		
+			return item + "+"
+			//html에 + 붙여서 다시 html로 넣어라
+			})
+		})
+		$("h1").on({
+			//mouseenter : 마우스가 내 영역 안으로 들어올때 
+			mouseenter : function(){
+				//$(this) : 마우스 커서를 내부에 가지고 있는 h1 태그 한개
+				//addClass(class속성값) : class='reverse'속성 추가
+				$(this).addClass("reverse")
+			},
+			//mouseleave : 마우스가 내 영역 밖으로 나갈때
+			mouseleave : function(){
+				//removeClass(class속성값) : class="reverse" 속성을 제거
+				$(this).removeClass("reverse")
+			}
+		});
+	})
+</script>
+</head>
+<body>
+<h1>Header-0</h1>
+<h1>Header-1</h1>
+<h1>Header-2</h1>
+</body>
+</html>

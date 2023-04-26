@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--/jquerystudy/src/main/webapp/20230424/append3.html  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>div 태그에 추가하기</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		let info=[
+			{name:"홍길동",address:"서울시 금천구"},
+			{name:"김삿갓",address:"서울시 강서구"},
+			{name:"이몽룡",address:"서울시 구로구"}
+		]
+		$("div").append(function(i){ //div는 세개이므로 배열이다 //여러개가 들어갈수있으므로 함수이용해 처리
+			let item = info[i] //i는 0부터 2까지 들어갈것
+			let output = ""
+			output += "<h1>"+item.name+"</h1>"
+			output += "<h2>"+item.address+"</h2>"
+			return output
+		})
+	})
+</script>
+</head>
+<body>
+<div>0.</div>
+<div>1.</div>
+<div>2.</div>
+</body>
+</html>

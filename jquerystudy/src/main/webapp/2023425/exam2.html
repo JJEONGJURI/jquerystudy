@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+/* submit 버튼에 click 이벤트 처리
+//	$("input[type=submit]").click(function(){
+		$("input:submit").click(function(){
+			let name =$("#name").val()
+			let pass =$("#password").val()
+			alert("이름 : "+ name +"\n"+"비밀번호 : "+ pass)
+			return false; //적어놓은거 사라지지 않게 함
+			//기본이벤트 취소
+		})
+*/		
+/*
+		//submit 버튼 클릭시 form 객체에 submit 이벤트 발생.
+		$("#myform").submit(function(){
+			let name =$("#name",this).val() //폼이 여러개면 this 넣으면 됨
+			let pass =$("#password",this).val()
+			alert("이름 : "+ name +"\n"+"비밀번호 : "+ pass)
+			return false; //적어놓은거 사라지지 않게 함
+		})
+*/
+		//submit 버튼 클릭시 form 객체에 submit 이벤트 발생.
+		$("#myform").submit(function(event){
+			let name =$("#name",this).val() //폼이 여러개면 this 넣으면 됨
+			let pass =$("#password",this).val()
+			alert("이름 : "+ name +"\n"+"비밀번호 : "+ pass)
+	//		return false; //기본 이벤트 취소
+			event.preventDefault()
+		})
+	})
+</script>
+</head>
+<body>
+제출 버튼이 클릭되면 입력된 이름과 비밀번호를 alert 창에 출력하기.<br>
+<form id="myform">
+	이름:<input type="text" name="name" id="name"><br>
+	비밀번호:<input type="password" name="password" id="password"><br>
+	<input type="submit" value="제출">
+</form>
+</body>
+</html>

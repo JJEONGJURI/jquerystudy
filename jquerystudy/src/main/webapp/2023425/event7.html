@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/2023425/event7.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>key event 예제</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		let num1 = $("h1").text(); //h1의 텍스트값을 num1에 넣는다 > 하나밖에 없어서100 문자열 (여러개 있으면 배열됨)
+		//$("textarea").val().length : 입력된 문자열의 길이 인데 숫자처리해줌
+		//원래는 num1을 parseInt 해야하는데 자바스크립트에서는 알아서 해줌
+		//num2 = 100 - (입력된 길이) / 쓰기 가능한 문자갯수
+		/*
+			keyup : key 이벤트 관련 함수
+					key가 눌렸다가 올라올 때 발생되는 이벤트 처리 함수
+				
+			keydown : key 이벤트 관련 함수
+					  key가 눌려질 때 발생되는 이벤트 처리 함수
+					  
+			keypress : 거의 사용하지 않음
+						key가 눌려지고 있는 상태
+		*/
+		$("textarea").keyup(function() {
+			let num2 = num1 - $("textarea").val().length;
+			//$("#remainnum").html(num2) : remainnum에 num2 값 넣음
+			$("#remainnum").html(num2);
+			//음수 : 100 개 문자이상 쓰여진 갯수
+			if (num2 < 0)
+				$("h1").css("color", "red"); // 음수는 빨간색으로 표시
+			else
+				$("h1").css("color", "black"); //0,양수는 검정색으로 표시
+		})
+	})
+</script>
+</head>
+<body>
+<p>글쓰기</p><h1 id="remainnum">100</h1>
+<textarea rows="10" cols="70"></textarea>
+</body>
+</html>

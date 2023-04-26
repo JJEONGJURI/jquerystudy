@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--/jquerystudy/src/main/webapp/20230424/html1.html  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html 함수 : innerHTML 같은 기능</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	/*
+	 * 첫번째div 태그 : <h1>Header-0</h1>
+	 * 두번째div 태그 : <h1>Header-1</h1>
+	 * 세번째div 태그 : <h1>Header-2</h1>
+	 
+	 
+	태그.html() : 태그 내부의 html 내용 리턴
+	태그.html(문자열) : 태그 내부의 html 내용을 문자열로 저장
+	 */
+	$(function() {
+		//	$("div").html("<h1>Header</h1>")
+		$("div").html(function(i) {
+			return "<h1>Header-" + i + "</h1>"
+		})
+/*
+		//div 태그의 내용을 alert 으로 출력하기
+		$("div").each(function(i, item) {
+			alert($(this).html())
+		})
+*/	
+		//$("div") :div 태그의. 배열
+		$.each($("div"),function(i, item) {
+			alert($(this).html())
+		})
+		//text() 함수:html 이 아닌 순수 문자열로 인식함.
+		$("div").text(function(i) {
+			return "<h1>Header-" + i + "</h1>"
+		})
+	})
+</script>
+
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>

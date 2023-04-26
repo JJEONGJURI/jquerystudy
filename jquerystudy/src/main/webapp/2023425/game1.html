@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	table,td { border:1px solid gray;}
+	table {border-collapse: collapse;}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	var level = 4;
+	$(function() { //화면 시작 시 호출
+		shuffle(); //model 배열의 이미지를 섞는다.
+		editHtml(); //model 이미지를 화면에 출력
+		game();
+	})
+	function shuffle(){
+		model = ["S_1.jpg","S_1.jpg","S_2.jpg","S_2.jpg",
+	   			 "S_3.jpg","S_3.jpg","S_4.jpg","S_4.jpg",
+	   			 "S_5.jpg","S_5.jpg","S_6.jpg","S_6.jpg",
+	   			 "S_7.jpg","S_7.jpg","S_8.jpg","S_8.jpg",
+	   			 "S_9.jpg","S_9.jpg","S_10.jpg","S_10.jpg",	   	
+	   			 "pic00.png","pic00.png","pic01.png","pic01.png",	   	
+	   			 "pic02.png","pic02.png","pic03.png","pic03.png",	   	
+	   			 "pic04.png","pic04.png","pic05.png","pic05.png",	   	
+	   			 "pic06.png","pic06.png","pic07.png","pic07.png"];
+		cnt = level * level; //2*2는 위에 한줄 // model에서 사용되는 이미지의 갯수
+		//필요한 이미지의 갯수만큼 임의의 섞기
+		for(var a=0;a<10000;a++) {
+			//cnt : 16
+			//ran : 0~15 사이의 임의의 수
+			var ran = Math.floor(Math.random()*cnt);
+			var tmp = model[0];
+			model[0] = model[ran];
+			model[ran] = tmp;
+		}
+	}
+	function editHtml() { //이미지를 화면에 출력하기
+		var board = "<table>";
+		for(var i=0;i<cnt;i++) {
+			if((i%level)==0) board +="<tr>"; //level이 4면 4행 4열로 만듬 
+			board += "<td><img class='pic' src='../imgs/"+model[i]
+			+"' value='"+model[i]+"' width='100' height='100'></td>";
+			if((i%level)==(level -1)) board +="</tr>";	
+		}
+		$("#board").html(board+"</table>");
+	}
+	function game() {
+		setTimeout(function(){
+			//$(".pic") : class="pic" 인 태그들 <img> 태그 들
+			$(".pic").each(function(i,item){ 
+				//item : <img> 태그 한개
+				$(this).css("opacity","0.01"); //이미지를 투명하게 보이게 함 =>opacity,0.01
+				//$(this) 
+				//opacity : 투명도 0:완전투명. (그림안보임) / 1:불투명(이미지 보여짐)
+			})
+		},2000); //2초후에 함수 실행-> 2초후에 사진 투명하게 함
+		let total = 0; //클릭한 횟수
+		let count = 0; //클릭시 첫번째 이미지(1), 두번째 이미지(2)
+		let success = 0; //찾은 이미지 쌍의 갯수 4*4 => 8인경우=>이미지 찾기 성공
+		let onePic = null; //첫번째 이미지
+		let twoPic = null; //두번째 이미지 객체를 넣는다.
+		
+		$(".pic").click(function(){ // 이미지 태그 클릭시
+			//$(this) : 클릭된 이미지 태그
+			//is(선택자) : 클릭된 이미지의 class='diepic'인 경우 true
+			//class = "diepic" : 쌍을 찾은 이미지들의 class 속성값
+			if(!$(this).is(".diepic")){
+				total++; //클릭시마다 1씩 증가
+				$(this).css("opacity",1); //선택된 이미지 화면에 보여지게 함 투명도 1
+				count++;
+				if(count == 1) { //첫번째이미지 선택
+					onePic = $(this);
+				} else if(count == 2) {
+					twoPic = $(this);
+					//첫번째 이미지 src 속성값과 두번째 이미지 src 속성값이 같은 경우
+					//게임의 오류 : 같은 이미지를 2번클릭한 경우 이미지를 찾은걸로 인식함
+					//=> 첫번째 이미지와 두번째 이미지의 위치값 달라야 함. 조건 추가
+					/*
+						onePic.parent() :<td>태그
+						onePic.parent().parent() : <tr>태그
+					*/
+					//onex : tr의 인덱스, oney: td 인덱스
+					 onex=onePic.parent().parent().index();//tr인덱스
+					 oney = onePic.parent().index();
+					 twox=twoPic.parent().parent().index();//tr인덱스
+					 twoy = twoPic.parent().index();
+					 
+					if(onePic.attr("src") == twoPic.attr("src") && (onex != twox ||oney != twoy)) {
+						success++; //찾은 쌍의 갯수 증가
+						onePic.addClass("diepic");
+						twoPic.addClass("diepic");
+						onePic.disable=true;//찾은 이미지 disable로 설정하기
+						twoPic.disable=true;
+						if(cnt/2 == success) { //모든 이미지의 쌍을 찾음. 게임완료
+							alert(total + "번 만에 성공. 게임 종료")
+							setTimeout(function(){
+								if(confirm("게임을 계속하시겠습니까?"))
+									location.reload();
+							},2000)
+						}
+					}else { //같은 쌍의 이미지가 아닌경우
+						setTimeout(function(){
+							onePic.css("opacity","0.01");
+							twoPic.css("opacity","0.01");
+						},50); //0.05초 만에 첫번째 사진과 두번째 사진 투명하게 만들어 이미지 안보이게 함
+					}
+					count = 0;
+				} //count ==2 인 조건문의 끝
+				else { //count 값이 1,2가 아닌 경우
+					alert("프로그램 오류 발생");
+				}
+			}
+		} //(.pic).click(function) 함수 끝
+		) //click() 끝
+	}
+	function gamestart(sel) {
+		level = parseInt(sel.value);
+		shuffle();
+		editHtml();
+		game();
+	}
+</script>
+</head>
+<body>
+<select id ="level" onchange="gamestart(this)">
+	<option value="2">2 x 2</option>
+	<option value="4" selected="selected">4 x 4</option>
+	<option value="6">6 x 6</option>
+</select>
+<div id="board">
+</div>
+</body>
+</html>

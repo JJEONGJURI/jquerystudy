@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/20230424/jquery6.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>nth-child, nth-of-type</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("h3:odd").css({"background":"yellow","color":"blue"})	
+		$("h3:even").css({"background":"black","color":"yellow"})	
+//		$("h2:nth-child(3n)").css({"background":"black","color":"white"})	
+//		$("h2:nth-child(3n+1)").css({"background":"yellow","color":"blue"})	
+//		$("h2:nth-child(3n+2)").css({"background":"blue","color":"yellow"})	
+		//h2 태그만 인식하여 설정하기
+		$("h2:nth-of-type(3n)").css({"background":"black","color":"white"})	
+		$("h2:nth-of-type(3n+1)").css({"background":"yellow","color":"blue"})	
+		$("h2:nth-of-type(3n+2)").css({"background":"blue","color":"yellow"})	
+		//h1태그에 바탕색을 분홍색으로 설정
+		$("h1").css("background","pink")
+		//빨,오,노,초,파,남색으로 설정
+/*
+		$("h1:eq(0)").css("background","red")		
+		$("h1:eq(1)").css("background","orange")		
+		$("h1:eq(2)").css("background","yellow")		
+		$("h1:eq(3)").css("background","green")		
+		$("h1:eq(4)").css("background","blue")		
+		$("h1:eq(5)").css("background","navy")
+*/		
+		//반복문으로 처리 : each()
+		//$(h1).each(function(인덱스,요소)) : 요소->h1 태그 한개를 의미
+		//$.each(배열,function(인덱스,해당요소)) : 요소-> 배열의 한개를 의미
+		let colors = ["red","orange","yellow","green","blue","navy"]
+/*
+		$("h1").each(function(i,item){
+			//$(this) : 현재 반복중인 h1 태그	
+			$(this).css("background",colors[i])
+		})
+*/
+	 	$.each(colors,function(i,c){
+	 		$("h1:eq("+i+")").css("background",c)
+	 })	
+	})
+		
+</script>
+</head>
+<body>
+h3태그의 홀수번째를 노란바탕에 파란글씨, 짝수번째 검정바탕에 노란글씨로 설정
+	<h3>H3:Header_0</h3>
+	<h3>H3:Header_1</h3>
+	<h3>H3:Header_2</h3>
+	<h3>H3:Header_3</h3>
+	<h3>H3:Header_4</h3>
+	<h3>H3:Header_5</h3>
+
+	<hr>
+	<h2>H2:Header_0</h2>
+	<h2>H2:Header_1</h2>
+	<h2>H2:Header_2</h2>
+	<h2>H2:Header_3</h2>
+	<h2>H2:Header_4</h2>
+	<h2>H2:Header_5</h2>
+	<hr>
+	<h1>H1:Header_0</h1>
+	<h1>H1:Header_1</h1>
+	<h1>H1:Header_2</h1>
+	<h1>H1:Header_3</h1>
+	<h1>H1:Header_4</h1>
+	<h1>H1:Header_5</h1>
+	<hr>
+
+</body>
+</html>
