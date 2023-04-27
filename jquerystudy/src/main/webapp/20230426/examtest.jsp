@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- /jquerystudy/src/main/webapp/20230426/examtest.jsp--%>
+<%-- /jquerystudy/src/main/webapp/20230426/examtest.jsp
+	!---- html 주석 쓰면 안됨
+--%>
 <%
 String result = "";
 for (int i = 1; i <= 10; i++) {

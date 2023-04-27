@@ -15,7 +15,7 @@
 	}
 	
 	function getMax() {
-		if(this.readyState == 4 && this.status == 200) {
+		if(this.readyState == 4 && this.status == 200) {//readyState==4 응답완료 / this.stauts==200 정상 //>정상상태 
 			console.log(this.responseText)
 			const nums = this.responseText.split(",")
 			let max= parseInt(nums[0].trim())//첫번째 요소의 값으로 최대값 초기화

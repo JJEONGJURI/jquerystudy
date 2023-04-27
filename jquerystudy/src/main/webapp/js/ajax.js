@@ -11,7 +11,7 @@ function ajax(url,params,callback,method) {
 	if(method == "GET") { 
 		url = url + "?"+params //GET 방식인 경우 url에 파라미터 붙여서 서버로 전송
 	}
-	xhttp.open(method,url,true)
+	xhttp.open(method,url,true)//기본값 초기화
 	//GET방식이든 POST방식이든처리하고 / 그에 따라 url 바뀌고 /true: 기본값. 비동기방식으로 전송할거다
 	//POST 방식 대비하여 파라미터값 헤더 정보 설정
 	//GET 방식은 필요없지만 POST 방식은 필요하기 때문
@@ -20,5 +20,5 @@ function ajax(url,params,callback,method) {
 	xhttp.send(method=='POST'?params:null) 
 	//xhttp.send(null)
 	xhttp.onreadystatechange=callback
-	//콜백 함수 등록(이름이 getMax인 콜백함수)
+	//콜백 함수(onreadystatechange) 등록(이름이 getMax인 콜백함수)
 }
