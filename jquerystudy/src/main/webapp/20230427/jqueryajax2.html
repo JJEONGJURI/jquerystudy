@@ -5,6 +5,13 @@
 		- member 테이블을 읽어서 id,pass 검증하기
 		- id,pass 일치 : 반갑습니다. name 님 => message 부분 출력 
 		- id,pass 불일치 : 아이디 또는 비밀번호가 틀립니다. => message 부분 출력 
+--------------------------------------------------------------------
+	아이디 중복 버튼 클릭시
+	1. id 파라미터를 iddup.jsp로 전송
+	2. iddup.jsp
+		- id 존재 : 존재하는 아이디입니다.=> message 부분에 출력하기.
+					id 입력내용을 제거하기
+		- id 존재하지 않을 때 : 회원가입이 가능한 아이디 입니다. => message 출력하기
  -->
 <html>
 <head>
@@ -18,12 +25,13 @@
 			//loginbtn 타입이 "submit" 임 => 마지막에 return false가 필요함 
 			//내 폼에 들어온 액션으로 요청을해
 			//액션속성이 없으면 나를 호출한다
-			let param = {id:$("#id").val(),pass:$("#pass").val()}
-			$.ajax({
+			let param = {id:$("#id").val(),pass:$("#pass").val()} //파라미터 만든다
+			$.ajax({ //ajax 을 통해 보냄
 				url : "login.jsp",
 				type : "POST",
 				data : param,
 				success : function(data){
+					//data : 서버에서 전송된 데이터 저장
 					$("#message").html(data)
 				},
 				error : function(e){
@@ -38,6 +46,28 @@
 			// action 속성이 없는 경우 현재페이지 다시 호출함
 			//2.이벤트의 확산을 막아준다.(여기서 2번 기능은 필요없다)
 			//만약 submit으로 안쓰고 button을 쓴다면 return 은 필요없다?
+		})
+	})
+	$(function(){
+		$("#btn").click(function(){ 
+			//input type= button 이라 result 필요없음
+			let param = {id:$("#id").val()}
+			$.ajax({
+				url : "iddup.jsp",
+				type : "POST",
+				data : param,
+				success : function(data){
+				//data:<<h1 id="result" class="find" style="color:red;">존재하는 아이디 입니다.</h1>
+					$("#message").html(data)
+					//id값이 result라 #으로 가져오고 class라 .으로 가져온다
+					if($("#result").is(".find")){ 
+						$("#id").val("");
+					}
+				},
+				error : function(e){
+					alert("서버오류:"+e.status)
+				}
+			})
 		})
 	})
 </script>
