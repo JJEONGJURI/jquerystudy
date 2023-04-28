@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/20230428/jqueryajax1.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자동완성</title>
+<style type="text/css">
+.listbox {
+	position: relative;
+	left: 10px;
+	margin: 10p;
+	width: 200px;
+	background: #EEEEEE;
+	color: #FF00FF;
+	border: 2px solid #000
+}
+
+.namelist {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.hover {
+	background: cyan;
+	color: blue;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".listbox").hide()//.listbox 태그를 안보이도록 설정
+		$("#id").keyup(function() { 
+			//키가 눌려질때마다 현재까지 등록된 영어 다 넘어간다 
+			//a 누르면 a
+			//abc 누르면 abc
+			//abc누르고 지우면 빈문자열
+			let data = "id=" + $("#id").val() //입력된 id값
+			$.ajax({
+				url : "idlist.jsp", 
+				type : "POST",
+				data : data,
+				success : function(html) {
+		//html : <ul><li>admin</li>...</ul>			
+					$(".listbox").show()
+					//.html(html) => html 두개 같은거 아님
+					//앞에꺼는 inner html이고 (html)은 function(html)임?
+					$(".namelist").html(html)
+					$("li").hover(function() { //hover 클래스
+						$(this).addClass("hover") //class 속성에 "hover"를 추가해줘
+					}, function() { //마우스 커서가 벗어나면
+						$(this).removeClass("hover") //hover 없애줘
+					})
+					$("li").click(function() {
+						//검색된 값을 클릭하면 #id val에 넣어라
+						$("#id").val($(this).text())
+						$(".listbox").hide()
+					})
+				},
+				error : function(e) {
+					alert("서버 오류:"+e.status)
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<span>사용자 아이디</span>
+	<input type="text" name="id" id="id">
+	<div class="listbox">
+		<div class="namelist"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- /jquerystudy/src/main/webapp/20230428/jqueryajax4.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSON 연습</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btn").click(function(){
+			$.ajax({
+				url : "person.jsp",
+				success : function(data) {
+					//data : 문자열데이터
+					//[{},{},...] => 배열객체
+					//person은 배열객체이다 // [] 때문에
+					let person = JSON.parse(data)
+					//JSON.parse(data) : JSON 형태로 인식하여 객체(person)로 생성함
+					$.each(person,function(i,item){
+						//item : {name:...}
+						$("#result").append("<ul>")
+						$("#result").append("<li>"+item.name+"</li>")
+						$("#result").append("<li>"+item.gender+"</li>")
+						$("#result").append("<li>"+item.part+"</li>")
+						$("#result").append("</ul>")
+					})
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+<button id="btn">JSON연습</button>
+<div id = "result"></div>
+</body>
+</html>

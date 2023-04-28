@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--/jquerystudy/src/main/webapp/20230428/jqueryajax3.html  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>xml 연습</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#allbtn").click(function(){
+			$("#state").html("");
+			$.ajax("address.xml",{
+				success:function(data) {
+					$("#state").append("<ul>")
+					$(data).find("state").each(function(){
+						$("#state").append("<li>"+$(this).text()+"</li>")
+					})						
+						$("#state").append("</ul>")
+				},
+				error : function(e){
+					alert("서버오류:"+ e.status);
+				}
+			})
+		})
+		
+	})
+	function stateprint(st) {
+		$("#state").html(""); //state에 있는 내용 없애기
+		$.ajax("address.xml", {
+			success : function(data) {
+				$("#state").append("<ul>")
+				$(data).find(st).find('state').each(function(){
+					//data에서 st를 찾아서 그밑에 있는 state 를 찾아줘
+					$("#state").append("<li>"+$(this).text()+"</li>")
+				})
+				$("#state").append("</ul>")
+			},
+			error : function(e) {
+				alert("서버오류:"+e.status)
+			}
+		})
+	}
+</script>
+</head>
+<body>
+<button id="allbtn">전체구</button>
+<button onclick="stateprint('east')" >동쪽구</button>
+<button onclick="stateprint('west')">서쪽구</button>
+<button onclick="stateprint('south')">남쪽구</button>
+<button onclick="stateprint('north')">북쪽구</button>
+<div id="state"></div>
+</body>
+</html>

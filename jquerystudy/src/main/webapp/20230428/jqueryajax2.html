@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--/jquerystudy/src/main/webapp/20230428/jqueryajax2.html  -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax을 이용하여 xml 문서 분석하기</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btn").click(function(){
+			$.ajax("person.xml",{
+				//data : String 타입이 아니고 DOM 타입의 데이터임 
+				//data는 DOM Tree 의 최상단
+				//data-people-person-(name,gender,part)-(name)홍길동,(gender)남자,(part)기타
+				//			 -person-(name,gender,part)-(name)김길순,(gender)여자,(part)드럼
+				//			 -person-(name,gender,part)-(name)박길수,(gender)남자,(part)보컬
+				//DOM : document object ? 타입
+				success:function(data) {
+					$(data).find("person").each(function(){
+						//3개기 때문에 each로 반복
+						//$(this)는 첫번째 person
+						name = "<li>"+$(this).find("name").text()+ "</li>"
+						gen = "<li>"+$(this).find("gender").text() + "</li>"
+						part = "<li>"+$(this).find("part").text() + "</li>"
+						$("#person").append("<ul>"+name+gen+part+"</ul>")
+				//xml이 넘어갈때 받는 브라우저에 마인타입을 넘겨줌... 마인타입?
+				//xml이면 text형이 아니고 돔형태로 받는다..
+					})
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+<button id="btn">XML 연습</button>
+<div id="person"></div>
+
+</body>
+</html>
